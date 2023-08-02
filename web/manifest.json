@@ -1,6 +1,6 @@
 {
-    "name": "aamar",
-    "short_name": "aamar",
+    "name": "Posts",
+    "short_name": "Posts",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

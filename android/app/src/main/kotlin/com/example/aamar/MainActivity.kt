@@ -1,4 +1,4 @@
-package com.example.aamar
+package com.example.posts
 
 import io.flutter.embedding.android.FlutterActivity
 
