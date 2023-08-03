@@ -51,52 +51,55 @@ class _PostsListViewState extends State<PostsListView>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PostsBloc, PostsState>(builder: (context, state) {
-      if (state is PostsIsLoading && state.isFirstFetch) {
-        return const LoadingIndicator();
-      } else if (state is PostsIsLoading) {
-        _isLoading = true;
-      } else if (state is PostsError) {
-        return error_widget.ErrorWidget(
-            msg: state.message!, onRetryPressed: () => _getPosts());
-      }
-      return _postsBloc.posts.isNotEmpty
-          ? ListView.separated(
-              controller: _scrollController,
-              itemCount: _postsBloc.posts.length + (_isLoading ? 1 : 0),
-              itemBuilder: (context, index) {
-                var count = _postsBloc.posts.length + (_isLoading ? 1 : 0);
-                final Animation<double> animation =
-                    Tween(begin: 0.0, end: 1.0).animate(
-                  CurvedAnimation(
-                    parent: _animationController!,
-                    curve: Interval((1 / count) * index, 1.0,
-                        curve: Curves.fastOutSlowIn),
-                  ),
-                );
-                _animationController?.forward();
-                if (index < _postsBloc.posts.length) {
-                  return PostWidget(
-                    post: _postsBloc.posts[index],
-                    animation: animation,
-                    animationController: _animationController,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: BlocBuilder<PostsBloc, PostsState>(builder: (context, state) {
+        if (state is PostsIsLoading && state.isFirstFetch) {
+          return const LoadingIndicator();
+        } else if (state is PostsIsLoading) {
+          _isLoading = true;
+        } else if (state is PostsError) {
+          return error_widget.ErrorWidget(
+              msg: state.message!, onRetryPressed: () => _getPosts());
+        }
+        return _postsBloc.posts.isNotEmpty
+            ? ListView.separated(
+                controller: _scrollController,
+                itemCount: _postsBloc.posts.length + (_isLoading ? 1 : 0),
+                itemBuilder: (context, index) {
+                  var count = _postsBloc.posts.length + (_isLoading ? 1 : 0);
+                  final Animation<double> animation =
+                      Tween(begin: 0.0, end: 1.0).animate(
+                    CurvedAnimation(
+                      parent: _animationController!,
+                      curve: Interval((1 / count) * index, 1.0,
+                          curve: Curves.fastOutSlowIn),
+                    ),
                   );
-                } else if (_postsBloc.pageNo <= _postsBloc.totalPages) {
-                  Timer(const Duration(milliseconds: 30), () {
-                    _scrollController
-                        .jumpTo(_scrollController.position.maxScrollExtent);
-                  });
-                  return const LoadingIndicator();
-                }
-                return const SizedBox();
-              },
-              separatorBuilder: (context, index) {
-                return Divider(
-                  color: Colors.grey[400],
-                );
-              },
-            )
-          : const NoData();
-    });
+                  _animationController?.forward();
+                  if (index < _postsBloc.posts.length) {
+                    return PostWidget(
+                      post: _postsBloc.posts[index],
+                      animation: animation,
+                      animationController: _animationController,
+                    );
+                  } else if (_postsBloc.pageNo <= _postsBloc.totalPages) {
+                    Timer(const Duration(milliseconds: 30), () {
+                      _scrollController
+                          .jumpTo(_scrollController.position.maxScrollExtent);
+                    });
+                    return const LoadingIndicator();
+                  }
+                  return const SizedBox();
+                },
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    color: Colors.grey[400],
+                  );
+                },
+              )
+            : const NoData();
+      }),
+    );
   }
 }

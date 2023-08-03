@@ -95,6 +95,7 @@ class DefaultAppTextForm extends StatelessWidget {
           focusNode: focusNode,
           onFieldSubmitted: onFieldSubmitted,
           onEditingComplete: onEditingComplete,
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
           onTap: onTap,
           readOnly: readOnly,
           textInputAction: textInputAction,
