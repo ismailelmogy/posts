@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:posts/src/config/routes/app_routes.dart';
 import 'package:posts/src/core/utils/media_query_values.dart';
 import 'package:posts/src/features/posts/domain/entities/post.dart';
 
@@ -18,31 +19,35 @@ class PostWidget extends StatelessWidget {
       animation: animationController!,
       builder: (BuildContext context, Widget? child) {
         return FadeTransition(
-          opacity: animation!,
-          child: Transform(
+            opacity: animation!,
+            child: Transform(
               transform: Matrix4.translationValues(
                   0.0, 50 * (1.0 - animation!.value), 0.0),
-              child: Container(
-                width: context.width,
-                margin: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${post.id}. ${post.title}",
-                      style: const TextStyle(
-                          fontSize: 18.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
+              child: InkWell(
+                  onTap: () => Navigator.pushNamed(
+                      context, Routes.postDetailsRoute,
+                      arguments: post),
+                  child: Container(
+                    width: context.width,
+                    margin: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${post.id}. ${post.title}",
+                          style: const TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 10.0),
+                        Text(post.body.length > 100
+                            ? '${post.body.substring(0, 100)}...'
+                            : post.body)
+                      ],
                     ),
-                    const SizedBox(height: 10.0),
-                    Text(post.body.length > 100
-                        ? '${post.body.substring(0, 100)}...'
-                        : post.body)
-                  ],
-                ),
-              )),
-        );
+                  )),
+            ));
       },
     );
   }
