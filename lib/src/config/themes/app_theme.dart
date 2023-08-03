@@ -9,15 +9,15 @@ ThemeData appTheme() {
     primaryColor: AppColors.primaryColor,
     hintColor: AppColors.hintColor,
     platform: TargetPlatform.iOS,
-    appBarTheme: const AppBarTheme(
-      elevation: 0,
-      backgroundColor: Colors.white,
-      titleTextStyle: TextStyle(
-          fontFamily: AppStrings.fontName,
-          color: Colors.black,
-          fontWeight: FontWeight.w500,
-          fontSize: 20),
-    ),
+    // appBarTheme: const AppBarTheme(
+    //   elevation: 0,
+    //   backgroundColor: Colors.white,
+    //   titleTextStyle: TextStyle(
+    //       fontFamily: AppStrings.fontName,
+    //       color: Colors.black,
+    //       fontWeight: FontWeight.w500,
+    //       fontSize: 20),
+    // ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
           foregroundColor: Colors.black,

@@ -29,9 +29,9 @@ class DioConsumer extends ApiConsumer {
       ..validateStatus = (status) {
         return status! < StatusCode.internalServerError;
       };
-    client.interceptors.add(di.sl<AppIntercepters>());
+    client.interceptors.add(di.serviceLocator<AppIntercepters>());
     if (kDebugMode) {
-      client.interceptors.add(di.sl<LogInterceptor>());
+      client.interceptors.add(di.serviceLocator<LogInterceptor>());
     }
   }
 
@@ -101,9 +101,10 @@ class DioConsumer extends ApiConsumer {
         throw const FetchDataException();
       case DioExceptionType.badResponse:
         throw const BadRequestException();
+      case DioExceptionType.connectionError:
+        throw const SocketException('');
       case DioExceptionType.badCertificate:
       case DioExceptionType.cancel:
-      case DioExceptionType.connectionError:
       case DioExceptionType.unknown:
         throw const NoInternetConnectionException();
     }

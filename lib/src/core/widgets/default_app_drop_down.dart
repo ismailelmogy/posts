@@ -60,7 +60,7 @@ class _DefaultDropdownButtonFormFieldState
               const Icon(
                 Icons.keyboard_arrow_down,
                 size: 20,
-                color: AppColors.hintColor,
+                color: AppColors.secondaryColor,
               ),
           style: Theme.of(context).textTheme.labelSmall,
           value: widget.value,

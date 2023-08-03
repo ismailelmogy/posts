@@ -4,27 +4,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/api/api_consumer.dart';
 import 'core/api/app_interceptors.dart';
 import 'core/api/dio_consumer.dart';
+import 'features/posts/posts_injection_container.dart';
 
-final sl = GetIt.instance;
+final serviceLocator = GetIt.instance;
 Future<void> init() async {
-  // Blocs
-
   //Features
-  //initChangeLanguageFeature();
-  // sl.registerFactory<OnboardingBloc>(() => OnboardingBloc());
-  // sl.registerFactory<BottomNavigationBloc>(() => BottomNavigationBloc());
+  initPostsFeature();
 
   //External
   final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton(() => sharedPreferences);
-  sl.registerLazySingleton(() => Dio());
-  sl.registerLazySingleton<ApiConsumer>(() => DioConsumer(client: sl()));
-  sl.registerLazySingleton(() => LogInterceptor(
+  serviceLocator.registerLazySingleton(() => sharedPreferences);
+  serviceLocator.registerLazySingleton(() => Dio());
+  serviceLocator.registerLazySingleton<ApiConsumer>(
+      () => DioConsumer(client: serviceLocator()));
+  serviceLocator.registerLazySingleton(() => LogInterceptor(
       responseBody: true,
       error: true,
       requestHeader: true,
       responseHeader: true,
       request: true,
       requestBody: true));
-  sl.registerLazySingleton(() => AppIntercepters());
+  serviceLocator.registerLazySingleton(() => AppIntercepters());
 }

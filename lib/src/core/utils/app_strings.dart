@@ -1,7 +1,8 @@
 class AppStrings {
   static const String appName = 'Posts App';
   static const String fontName = 'Expo';
-  static const String locale = 'locale';
+  static const String pageNumber = '_page';
+  static const String pageSize = '_limit';
   static const String noRouteFound = 'no Route Found';
   static const String serverFailure = 'Server Failure';
   static const String cacheFailure = 'Cache Failure';
@@ -12,7 +13,8 @@ class AppStrings {
   static const String conflictOccurred = "Conflict Occurred";
   static const String internalServerError = "Internal Server Error";
   static const String noInternetConnection = 'No Internet connection';
-  static const String communicationErrorWithServer =
-      'Error occured while Communication with Server with StatusCode';
+  static const String errorOccurredDuringReadingData =
+      "Error Occurred During Reading Data";
   static const String unexpectedError = 'Unexpected Error';
+  static const String somethingWentWrong = 'Something Went Wrong';
 }
